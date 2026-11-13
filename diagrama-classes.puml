@@ -1,0 +1,22 @@
+@startuml
+title Padrão Bridge - Envio de notificações
+skinparam classAttributeIconSize 0
+abstract class Notificacao {
+  #canal: Canal
+  +Notificacao(canal: Canal)
+  +setCanal(canal: Canal): void
+  +{abstract} notificar(mensagem: String): String
+}
+class NotificacaoNormal
+class NotificacaoUrgente
+interface Canal {
+  +enviar(mensagem: String): String
+}
+class CanalEmail
+class CanalSms
+Notificacao <|-- NotificacaoNormal
+Notificacao <|-- NotificacaoUrgente
+Notificacao o--> Canal : ponte
+Canal <|.. CanalEmail
+Canal <|.. CanalSms
+@enduml
